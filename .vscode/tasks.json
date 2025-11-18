@@ -149,7 +149,7 @@
         },
         {
             "label": "gradle:test:debug",
-            "detail": "Test the project using Gradle.",
+            "detail": "Run the project tests in debug mode using Gradle.",
             "hide": false,
             "icon": {
                 "id": "beaker",
