@@ -69,7 +69,7 @@
         "com.glektarssza"
     ],
     "java.completion.lazyResolveTextEdit.enabled": true,
-    "java.completion.matchCase": "firstLetter",
+    "java.completion.matchCase": "off",
     "java.completion.maxResults": 0,
     "java.completion.postfix.enabled": true,
     "java.configuration.detectJdksAtStart": false,
@@ -162,6 +162,6 @@
         "JAVA_HOME": "<PATH-TO-JDK-21>"
     },
     "terminal.integrated.env.windows": {
-        "JAVA_HOME": "C:/Users/roblo/scoop/apps/temurin21-jdk/current/"
+        "JAVA_HOME": "<PATH-TO-JDK-21>"
     }
 }
