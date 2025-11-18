@@ -1,5 +1,9 @@
 compileJava.options.encoding = "UTF-8"
 
+checkstyle {
+    toolVersion = "12.1.2"
+}
+
 eclipse {
     project {
         file { beforeMerged { gp ->
