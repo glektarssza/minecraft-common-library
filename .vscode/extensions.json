@@ -9,6 +9,7 @@
         "vscjava.vscode-java-dependency",
         "vscjava.vscode-java-debug",
         "vscjava.vscode-gradle",
+        "vscjava.vscode-java-test",
         "shengchen.vscode-checkstyle"
     ],
     "unwantedRecommendations": ["vscjava.vscode-java-pack"]

@@ -3,6 +3,15 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Debug Tests",
+            "request": "attach",
+            "hostName": "localhost",
+            "projectName": "minecraft-gtnh-customizer",
+            "port": "5005",
+            "preLaunchTask": "gradle:test:debug"
+        },
+        {
+            "type": "java",
             "name": "Debug Client",
             "request": "attach",
             "hostName": "localhost",

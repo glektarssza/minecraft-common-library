@@ -111,6 +111,89 @@
             "problemMatcher": ["$gradle"]
         },
         {
+            "label": "gradle:test",
+            "detail": "Test the project using Gradle.",
+            "hide": false,
+            "icon": {
+                "id": "beaker",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "isDefault": true,
+                "kind": "test"
+            },
+            "isBackground": false,
+            "dependsOrder": "sequence",
+            "dependsOn": [],
+            "type": "shell",
+            "command": "${workspaceFolder}/gradlew",
+            "args": ["test"],
+            "windows": {
+                "command": "${workspaceFolder}/gradlew.bat"
+            },
+            "runOptions": {
+                "instanceLimit": 1,
+                "instancePolicy": "silent",
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": ["$gradle"]
+        },
+        {
+            "label": "gradle:test:debug",
+            "detail": "Run the project tests in debug mode using Gradle.",
+            "hide": false,
+            "icon": {
+                "id": "beaker",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "isDefault": false,
+                "kind": "test"
+            },
+            "isBackground": true,
+            "dependsOrder": "sequence",
+            "dependsOn": [],
+            "type": "shell",
+            "command": "${workspaceFolder}/gradlew",
+            "args": ["test", "--debug-jvm"],
+            "windows": {
+                "command": "${workspaceFolder}/gradlew.bat"
+            },
+            "runOptions": {
+                "instanceLimit": 1,
+                "instancePolicy": "silent",
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                {
+                    "base": "$gradle",
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "Configure project",
+                        "endsPattern": "BUILD (SUCCESSFUL|FAILED)|Listening for transport"
+                    }
+                }
+            ]
+        },
+        {
             "label": "gradle:clean",
             "detail": "Clean the project using Gradle.",
             "hide": false,
