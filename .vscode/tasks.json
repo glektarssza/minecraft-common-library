@@ -159,7 +159,7 @@
                 "isDefault": false,
                 "kind": "test"
             },
-            "isBackground": false,
+            "isBackground": true,
             "dependsOrder": "sequence",
             "dependsOn": [],
             "type": "shell",
