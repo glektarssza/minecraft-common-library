@@ -43,6 +43,42 @@ on:
         type: string
         required: false
         default: wrapper
+      upload-artifacts:
+        description: |
+          Whether to upload artifacts.
+
+          Useful when testing other parts of the build workflow.
+
+          Defaults to `true`.
+        type: boolean
+        required: false
+        default: true
+      artifact-retention-days:
+        description: |
+          The duration, in days, to retain artifacts for.
+
+          Defaults to `0` which defaults to the value configured for the
+          repository.
+        type: number
+        required: false
+        default: 0
+    outputs:
+      artifact-id:
+        description: |
+          The ID of the generated artifacts.
+        value: ${{jobs.lint.outputs.artifact-id}}
+      artifact-name:
+        description: |
+          The name of the generated artifacts.
+        value: ${{jobs.lint.outputs.artifact-name}}
+      artifact-digest:
+        description: |
+          The digest of the generated artifacts.
+        value: ${{jobs.lint.outputs.artifact-digest}}
+      artifact-url:
+        description: |
+          The URL from which the generated artifacts can be downloaded.
+        value: ${{jobs.lint.outputs.artifact-url}}
     secrets:
       github-token:
         description: |
@@ -55,6 +91,11 @@ jobs:
     permissions:
       # -- To clone repository
       contents: read
+    outputs:
+      artifact-id: ${{steps.upload-artifacts.outputs.artifact-id}}
+      artifact-name: lint-reports
+      artifact-digest: ${{steps.upload-artifacts.outputs.artifact-digest}}
+      artifact-url: ${{steps.upload-artifacts.outputs.artifact-url}}
     steps:
       - id: checkout-repository
         name: Checkout repository
@@ -97,7 +138,20 @@ jobs:
           gradle-version: ${{inputs.gradle-version}}
       - id: setup-ci-workspace
         name: Setup CI Workspace
-        run: ./gradlew setupCIWorkspace
+        run: ./gradlew --no-daemon setupCIWorkspace
       - id: lint
         name: Lint
-        run: ./gradlew check
+        run: ./gradlew --no-daemon check
+      - id: upload-artifacts
+        name: Upload artifacts
+        env:
+          GHPR_USERNAME: ${{github.actor}}
+          GHPR_TOKEN: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
+        if: inputs.upload-artifacts
+        uses: actions/upload-artifact@v5
+        with:
+          name: lint-reports
+          path: build/reports/problems/
+          compression-level: 9
+          if-no-files-found: warn
+          retention-days: ${{inputs.artifact-retention-days}}
