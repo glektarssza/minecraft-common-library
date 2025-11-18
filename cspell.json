@@ -9,10 +9,17 @@
         "./.cspell/configs/linux-dictionary.json",
         "./.cspell/configs/python-dictionary.json",
         "./.cspell/configs/java-dictionary.json",
+        "./.cspell/configs/gradle-dictionary.json",
         "./.cspell/configs/minecraft-dictionary.json",
         "./.cspell/configs/project-dictionary.json"
     ],
-    "ignorePaths": ["./gradlew*", "./spotless.importorder", "./formatter.xml"],
+    "enableGlobDot": true,
+    "ignorePaths": [
+        "./gradlew*",
+        "./spotless.importorder",
+        "./formatter.xml",
+        "./.git"
+    ],
     "useGitignore": true,
     "gitignoreRoot": ["."],
     "caseSensitive": false,

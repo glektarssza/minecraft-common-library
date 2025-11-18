@@ -1,3 +1,4 @@
+behaviour
 buildcraft
 cleanroom
 cleanroommc
@@ -7,10 +8,10 @@ curseforge
 cursemaven
 customizer
 divinerpg
+elif
 enderminy
 enderzoo
 futura
-g'lek
 gasstation
 glek
 glektarssza
@@ -25,13 +26,18 @@ harvestability
 importorder
 infi
 invincibles
+liberica
 nbtedit
 nevermine
 numpad
 railcraft
+remotehub
+sapmachine
+sarif
 seps
 serverutilities
 serverutils
+shengchen
 silverwood
 specialmobs
 tarssza
@@ -40,6 +46,7 @@ thaumcraft
 tpxd
 tweaker
 unimixins
+vscjava
 waila
 xaero
 xaeros
