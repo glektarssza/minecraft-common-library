@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: Build
+name: Test
 on:
   workflow_call:
     inputs:
@@ -62,48 +62,38 @@ on:
         type: number
         required: false
         default: 0
-      publish-to-github-packages:
-        description: |
-          Whether to publish the build to a GitHub package.
-
-          Useful when testing other parts of the build workflow.
-
-          Defaults to "false".
-        type: boolean
-        required: false
-        default: false
     outputs:
       artifact-id:
         description: |
           The ID of the generated artifacts.
-        value: ${{jobs.build.outputs.artifact-id}}
+        value: ${{jobs.test.outputs.artifact-id}}
       artifact-name:
         description: |
           The name of the generated artifacts.
-        value: ${{jobs.build.outputs.artifact-name}}
+        value: ${{jobs.test.outputs.artifact-name}}
       artifact-digest:
         description: |
           The digest of the generated artifacts.
-        value: ${{jobs.build.outputs.artifact-digest}}
+        value: ${{jobs.test.outputs.artifact-digest}}
       artifact-url:
         description: |
           The URL from which the generated artifacts can be downloaded.
-        value: ${{jobs.build.outputs.artifact-url}}
+        value: ${{jobs.test.outputs.artifact-url}}
     secrets:
       github-token:
         description: |
           The token to use when making authenticated calls to the GitHub API.
         required: true
 jobs:
-  build:
-    name: Build
+  test:
+    name: Test
     runs-on: ubuntu-latest
     permissions:
-      # -- Needed to clone the repository
+      # -- To clone repository
       contents: read
     outputs:
       artifact-id: ${{steps.upload-artifacts.outputs.artifact-id}}
-      artifact-name: dist
+      artifact-name: test-reports
       artifact-digest: ${{steps.upload-artifacts.outputs.artifact-digest}}
       artifact-url: ${{steps.upload-artifacts.outputs.artifact-url}}
     steps:
@@ -148,14 +138,10 @@ jobs:
           gradle-version: ${{inputs.gradle-version}}
       - id: setup-ci-workspace
         name: Setup CI Workspace
-        run: ./gradlew --no-daemon setupCIWorkspace
-      - id: build
-        name: Build
-        run: ./gradlew --no-daemon build
-      - id: publish-to-github-packages
-        name: Publish to GitHub Packages
-        if: inputs.publish-to-github-packages
-        run: ./gradlew --no-daemon publishAllPublicationsToGitHub-PackagesRepository
+        run: ./gradlew setupCIWorkspace
+      - id: test
+        name: Test
+        run: ./gradlew --no-daemon test
       - id: upload-artifacts
         name: Upload artifacts
         env:
@@ -164,8 +150,8 @@ jobs:
         if: inputs.upload-artifacts
         uses: actions/upload-artifact@v5
         with:
-          name: dist
-          path: build/libs/
-          compression-level: 0
-          if-no-files-found: error
+          name: test-reports
+          path: build/reports/tests/
+          compression-level: 9
+          if-no-files-found: warn
           retention-days: ${{inputs.artifact-retention-days}}
