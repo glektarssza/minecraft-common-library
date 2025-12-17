@@ -148,7 +148,7 @@ jobs:
           GHPR_USERNAME: ${{github.actor}}
           GHPR_TOKEN: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
         if: inputs.upload-artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: lint-reports
           path: build/reports/problems/
